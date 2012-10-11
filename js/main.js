@@ -15,7 +15,7 @@ $(function() {
         d3.selectAll("text")
             .attr("y", function(d) { return 50*(5-d.minuteIndex)+28; } )
             .attr("x", function(d) { return 50*d.hour+20; } )
-            .attr("class", function(d) { return "count"; })
+            .attr("class", "count")
             .text(function(d) { return d.count; });
 
         d3.selectAll("rect")
@@ -48,7 +48,7 @@ $(function() {
     {
         var params = inputParameters || {};
         var startHour = params.startHour || 0;
-        var intervalInSeconds = params.intervalInSeconds || 20;
+        var intervalInSeconds = params.intervalInSeconds || 10;
 
         var endDate = new Date();
         var currentDate = new Date();
@@ -66,6 +66,21 @@ $(function() {
         }
     }
 
+    function generateNewData(inputParameters)
+    {
+        var params = inputParameters || generateNewData.params || {};
+        var intervalInSeconds = params.intervalInSeconds || 20;
+
+        var currentDate = new Date();
+        var message = {sentDate: currentDate, text: 'hi'};
+        processMessage(message);
+        updateHeatMap();
+
+        var incrementInSeconds = 1+intervalInSeconds * Math.random() ;
+        setTimeout(generateNewData, incrementInSeconds*1000);
+    }
+    generateNewData.params = null;
+
     generateOldData();
     var svg = d3.select('div#heatmap').append('svg');
     svg.attr('width', 1200).attr('height', 300).attr("class", "Blues");
@@ -73,5 +88,7 @@ $(function() {
     var color = d3.scale.quantize().domain([0, processMessage.maxCount]).range(d3.range(7));
 
     updateHeatMap();
+
+    generateNewData();
 
 });
