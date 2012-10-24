@@ -93,9 +93,21 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
+
+div.title {
+	font-weight: bold;
+	font-size: 18px;
+	margin-bottom: 5px;
+	padding: 5px 5px 5px 5px;
+}
+
 text.count {
     fill: #000000;
     background-color: #ffffff;
+}
+
+text.hourLabel {
+    fill: #121212;
 }
 
 
@@ -299,3 +311,5 @@ text.count {
         page-break-after: avoid;
     }
 }
+
+
